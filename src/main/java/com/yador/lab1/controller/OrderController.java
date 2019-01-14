@@ -67,4 +67,8 @@ public class OrderController {
     public void deleteOrder(Long id) throws DeleteException {
         orderDao.delete(id);
     }
+
+    public Order buildOrder() {
+        return new Order();
+    }
 }
