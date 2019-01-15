@@ -54,9 +54,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="index.jsp">Clients</a>
-            <a class="nav-item nav-link" href="machinists.jsp">Machinists</a>
-            <a class="nav-item nav-link active" href="orders.jsp">Orders<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="clients">Clients</a>
+            <a class="nav-item nav-link" href="machinists">Machinists</a>
+            <a class="nav-item nav-link active" href="orders">Orders<span class="sr-only">(current)</span></a>
         </div>
     </div>
 </nav>
@@ -72,7 +72,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="orders.jsp">
+            <form method="post" action="orders">
                 <div class="modal-body">
                     <input type="number" hidden id="editId" name="id">
                     <div class="form-group">
@@ -144,7 +144,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="orders.jsp">
+            <form method="post" action="orders">
                 <div class="modal-body">
                     <input type="number" hidden id="addId" name="id">
                     <div class="form-group">
@@ -217,7 +217,7 @@
         </div>
     </div>
     <!--/*@thymesVar id="machinist" type="com.mag.lab2.model.dto.Machinist"*/-->
-    <form hidden action="orders.jsp" method="post">
+    <form hidden action="orders" method="post">
         <input type="number" hidden id="deleteId" name="id">
         <button type="submit" id="deleteFormBtn" name="action" value="delete">D</button>
     </form>

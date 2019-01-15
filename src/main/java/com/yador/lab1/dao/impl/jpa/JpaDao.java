@@ -15,16 +15,23 @@ public abstract class JpaDao<K, O> implements GenericDao<K, O> {
 
     @Override
     public O add(O entity) {
-        return entityManager.merge(entity);
+        entityManager.getTransaction().begin();
+        entity = entityManager.merge(entity);
+        entityManager.getTransaction().commit();
+        return entity;
     }
 
     @Override
     public void delete(K id) throws DeleteException {
+        entityManager.getTransaction().begin();
         entityManager.remove(get(id));
+        entityManager.getTransaction().commit();
     }
 
     @Override
     public void update(O entity) {
+        entityManager.getTransaction().begin();
         entityManager.persist(entity);
+        entityManager.getTransaction().commit();
     }
 }

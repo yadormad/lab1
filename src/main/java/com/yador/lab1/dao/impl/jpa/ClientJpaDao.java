@@ -18,6 +18,7 @@ public class ClientJpaDao extends JpaDao<Long, ClientEntity> {
 
     @Override
     public List<ClientEntity> getAll() {
+        ClientEntity clientEntity = entityManager.find(ClientEntity.class, 2L);
         return entityManager.createQuery("SELECT c FROM ClientEntity c", ClientEntity.class).getResultList();
     }
 }

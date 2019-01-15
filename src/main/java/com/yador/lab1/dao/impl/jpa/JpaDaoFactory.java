@@ -8,8 +8,7 @@ import com.yador.lab1.model.entity.OrderEntity;
 import com.yador.lab1.model.entity.OrderStatusEntity;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
+import javax.persistence.Persistence;
 
 public class JpaDaoFactory implements DaoFactory {
 
@@ -18,12 +17,17 @@ public class JpaDaoFactory implements DaoFactory {
     private GenericDao<Long, OrderEntity> orderDao;
     private GenericDao<Long, OrderStatusEntity> orderStatusDao;
 
-    public JpaDaoFactory(EntityManager entityManager) {
-        clientDao = new ClientJpaDao(entityManager);
-        machinistDao = new MachinistJpaDao(entityManager);
-        orderDao = new OrderJpaDao(entityManager);
-        orderStatusDao = new OrderStatusJpaDao(entityManager);
+    public JpaDaoFactory() {
+        EntityManager manager = Persistence
+                .createEntityManagerFactory("PitStopResource")
+                .createEntityManager();
+        clientDao = new ClientJpaDao(manager);
+        machinistDao = new MachinistJpaDao(manager);
+        orderDao = new OrderJpaDao(manager);
+        orderStatusDao = new OrderStatusJpaDao(manager);
     }
+
+
 
     @Override
     public GenericDao<Long, ClientEntity> getClientDao() {

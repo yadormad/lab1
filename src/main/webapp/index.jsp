@@ -32,9 +32,9 @@ ${clientsBean.init()}
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link active" href="index.jsp">Clients<span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="#">Machinists</a>
-            <a class="nav-item nav-link" href="#">Orders</a>
+            <a class="nav-item nav-link active" href="clients">Clients<span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="machinists">Machinists</a>
+            <a class="nav-item nav-link" href="orders">Orders</a>
         </div>
     </div>
 </nav>
@@ -70,7 +70,7 @@ ${clientsBean.init()}
                 </button>
             </div>
             <!--/*@thymesVar id="client" type="com.mag.lab2.model.dto.Client"*/-->
-            <form method="post" action="index.jsp">
+            <form method="post" action="clients">
                 <div class="modal-body">
                     <input type="number" hidden id="editId" name="id" >
                     <div class="form-group">
@@ -110,7 +110,7 @@ ${clientsBean.init()}
                 </button>
             </div>
             <!--/*@thymesVar id="client" type="com.mag.lab2.model.dto.Client"*/-->
-            <form  method="post" action="index.jsp">
+            <form  method="post" action="clients">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="firstNameAdd">First Name</label>
@@ -148,7 +148,7 @@ ${clientsBean.init()}
             </div>
         </div>
     </div>
-    <form hidden action="index.jsp" method="post">
+    <form hidden action="clients" method="post">
         <input type="number" hidden id="deleteId" name="id">
         <button type="submit" id="deleteFormBtn" name="action" value="delete">D</button>
     </form>

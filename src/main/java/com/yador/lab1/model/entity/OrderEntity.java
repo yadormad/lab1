@@ -5,7 +5,7 @@ import javax.persistence.*;
 import java.sql.Date;
 
 @Entity
-@Table(name = "ORDER_TABLE", schema = "PUBLIC", catalog = "PUBLIC")
+@Table(name = "ORDER_TABLE", schema = "PUBLIC")
 public class OrderEntity {
     private long id;
     private String description;

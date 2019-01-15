@@ -45,7 +45,7 @@
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
-            <version>8.0</version>
+            <version>6.0</version>
         </dependency>
         <dependency>
             <groupId>dom4j</groupId>
@@ -53,16 +53,21 @@
             <version>1.6.1</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-entitymanager</artifactId>
             <version>5.3.6.Final</version>
-            <!--<exclusions>-->
-            <!--<exclusion>-->
-            <!--<groupId>org.hibernate.javax.persistence</groupId>-->
-            <!--<artifactId>hibernate-jpa-2.0-api</artifactId>-->
-            <!--</exclusion>-->
-            <!--</exclusions>-->
+            &lt;!&ndash;<exclusions>&ndash;&gt;
+            &lt;!&ndash;<exclusion>&ndash;&gt;
+            &lt;!&ndash;<groupId>org.hibernate.javax.persistence</groupId>&ndash;&gt;
+            &lt;!&ndash;<artifactId>hibernate-jpa-2.0-api</artifactId>&ndash;&gt;
+            &lt;!&ndash;</exclusion>&ndash;&gt;
+            &lt;!&ndash;</exclusions>&ndash;&gt;
+        </dependency>-->
+        <dependency>
+            <groupId>org.postgresql</groupId>
+            <artifactId>postgresql</artifactId>
+            <version>42.2.5</version>
         </dependency>
     </dependencies>
     <build>

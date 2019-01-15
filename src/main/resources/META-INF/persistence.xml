@@ -5,15 +5,19 @@
                                  http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
              version="1.0">
 
-    <persistence-unit name="PitStopResource" transaction-type="JTA">
+    <persistence-unit name="PitStopResource" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-        <jta-data-source>java:/PitStopResource</jta-data-source>
+        <!--<jta-data-source>java:/PitStopResource</jta-data-source>-->
         <class>com.yador.lab1.model.entity.ClientEntity</class>
         <class>com.yador.lab1.model.entity.OrderStatusEntity</class>
         <class>com.yador.lab1.model.entity.OrderEntity</class>
         <class>com.yador.lab1.model.entity.MachinistEntity</class>
         <properties>
-            <!--<property name="hibernate.connection.datasource" value="PitStopResource"/>-->
+            <!--<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/pit_stop"/>-->
+            <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver"/>
+            <property name="hibernate.connection.datasource" value="PitStopDS"/>
+<!--            <property name="javax.persistence.jdbc.user" value="postgres" /> &lt;!&ndash; DB User &ndash;&gt;
+            <property name="javax.persistence.jdbc.password" value="Pelmen246" />-->
             <property name="hibernate.archive.autodetection" value="class"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgresPlusDialect"/>
             <property name="hibernate.show_sql" value="true"/>

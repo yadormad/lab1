@@ -4,6 +4,8 @@ import com.yador.lab1.dao.GenericDao;
 import com.yador.lab1.model.dto.Client;
 import com.yador.lab1.model.entity.ClientEntity;
 
+import java.util.HashSet;
+
 
 public class ClientJpaDtoConverterImpl extends JpaDtoConverter<ClientEntity, Client> {
 
@@ -22,18 +24,19 @@ public class ClientJpaDtoConverterImpl extends JpaDtoConverter<ClientEntity, Cli
         clientEntity.setLastname(client.getLastName());
         clientEntity.setFathername(client.getFatherName());
         clientEntity.setPhone(client.getPhoneNumber());
+        clientEntity.setOrderEntitySet(new HashSet<>());
         return clientEntity;
     }
 
     @Override
-    public Client toDto(ClientEntity clientTableEntity) {
-        boolean haveOrders = !clientTableEntity.getOrderEntitySet().isEmpty();
+    public Client toDto(ClientEntity clientEntity) {
+        boolean haveOrders = !clientEntity.getOrderEntitySet().isEmpty();
         return new Client()
-                .setId(clientTableEntity.getId())
-                .setFirstName(clientTableEntity.getFirstname())
-                .setLastName(clientTableEntity.getLastname())
-                .setFatherName(clientTableEntity.getFathername())
-                .setPhoneNumber(clientTableEntity.getPhone())
+                .setId(clientEntity.getId())
+                .setFirstName(clientEntity.getFirstname())
+                .setLastName(clientEntity.getLastname())
+                .setFatherName(clientEntity.getFathername())
+                .setPhoneNumber(clientEntity.getPhone())
                 .setClientHasOrders(haveOrders);
     }
 }

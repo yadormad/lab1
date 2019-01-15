@@ -42,9 +42,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" href="index.jsp">Clients</a>
-            <a class="nav-item nav-link active" href="machinists.jsp">Machinists <span class="sr-only">(current)</span></a>
-            <a class="nav-item nav-link" href="orders.jsp">Orders</a>
+            <a class="nav-item nav-link" href="clients">Clients</a>
+            <a class="nav-item nav-link active" href="machinists">Machinists <span class="sr-only">(current)</span></a>
+            <a class="nav-item nav-link" href="orders">Orders</a>
         </div>
     </div>
 </nav>
@@ -61,7 +61,7 @@
                 </button>
             </div>
             <!--/*@thymesVar id="machinist" type="com.mag.lab2.model.dto.Machinist"*/-->
-            <form method="post" action="machinists.jsp">
+            <form method="post" action="machinists">
                 <div class="modal-body">
                     <input type="number" hidden id="editId" name="id">
                     <div class="form-group">
@@ -101,7 +101,7 @@
                 </button>
             </div>
             <!--/*@thymesVar id="machinist" type="com.mag.lab2.model.dto.Machinist"*/-->
-            <form method="post" action="machinists.jsp">
+            <form method="post" action="machinists">
                 <div class="modal-body">
                     <div class="form-group">
                         <label for="firstNameAdd">First Name</label>
@@ -140,7 +140,7 @@
         </div>
     </div>
     <!--/*@thymesVar id="machinist" type="com.mag.lab2.model.dto.Machinist"*/-->
-    <form hidden action="machinists.jsp" method="post">
+    <form hidden action="machinists" method="post">
         <input type="number" hidden id="deleteId" name="id" >
         <button type="submit" id="deleteFormBtn" name="action" value="delete">D</button>
     </form>

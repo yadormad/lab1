@@ -9,27 +9,18 @@ import com.yador.lab1.model.dto.Client;
 import com.yador.lab1.model.entity.ClientEntity;
 
 import javax.annotation.PostConstruct;
-import javax.ejb.Singleton;
-import javax.ejb.Startup;
-import javax.ejb.Stateful;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceContextType;
 import java.util.List;
 
-@Stateful
+@Stateless
 public class ClientController {
-
-    @PersistenceContext(unitName = "PitStopResource", type = PersistenceContextType.TRANSACTION)
-    private EntityManager entityManager;
 
     private GenericDao<Long, ClientEntity> clientDao;
     private EntityDtoConverter<ClientEntity, Client> clientEntityDtoConverter;
 
     @PostConstruct
     public void init() {
-        clientDao = new JpaDaoFactory(entityManager).getClientDao();
+        clientDao = new JpaDaoFactory().getClientDao();
         clientEntityDtoConverter = new ClientJpaDtoConverterImpl(clientDao);
     }
 
