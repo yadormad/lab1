@@ -1,7 +1,5 @@
 package com.yador.lab1.model.dto;
 
-import java.util.Set;
-
 public class Client {
     private Long id;
     private String firstName;

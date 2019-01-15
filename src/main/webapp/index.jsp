@@ -10,6 +10,7 @@
 <jsp:useBean id="clientsBean" class="com.yador.lab1.controller.ClientController">
     <jsp:setProperty name="clientsBean" property="*"/>
 </jsp:useBean>
+${clientsBean.init()}
 
 <html>
 <head>
@@ -38,7 +39,12 @@
     </div>
 </nav>
 
-<c:set var="clientEditable" value="${clientsBean.buildClient()}"/>
+<c:set var="clientEditable" value="${clientsBean.buildClient(
+            param.id,
+            param.firstName,
+            param.lastName,
+            param.fatherName,
+            param.phoneNumber)}"/>
 
 <c:choose>
     <c:when test="${param.action.equals('add')}">
@@ -48,7 +54,7 @@
         ${clientsBean.editClient(clientEditable)}
     </c:when>
     <c:when test="${param.action.equals('delete')}">
-        ${clientsBean.deleteClient(clientEditable.getId())}
+        ${clientsBean.deleteClient(clientEditable.id)}
     </c:when>
 </c:choose>
 

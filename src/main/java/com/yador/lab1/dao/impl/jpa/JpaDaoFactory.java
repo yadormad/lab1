@@ -13,15 +13,12 @@ import javax.persistence.PersistenceContextType;
 
 public class JpaDaoFactory implements DaoFactory {
 
-    @PersistenceContext(unitName = "movie-unit", type = PersistenceContextType.EXTENDED)
-    private EntityManager entityManager;
-
     private GenericDao<Long, ClientEntity> clientDao;
     private GenericDao<Long, MachinistEntity> machinistDao;
     private GenericDao<Long, OrderEntity> orderDao;
     private GenericDao<Long, OrderStatusEntity> orderStatusDao;
 
-    public JpaDaoFactory() {
+    public JpaDaoFactory(EntityManager entityManager) {
         clientDao = new ClientJpaDao(entityManager);
         machinistDao = new MachinistJpaDao(entityManager);
         orderDao = new OrderJpaDao(entityManager);

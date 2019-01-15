@@ -14,17 +14,24 @@
 </jsp:useBean>
 
 
-<c:set var="orderEditable" value="${orderBean.buildOrder()}"/>
+<c:set var="orderEditable" value="${orderBean.createOrder(param.id,
+            param.description,
+            param.clientId,
+            param.machinistId,
+            param.startDate,
+            param.endDate,
+            param.cost,
+            param.statusId)}"/>
 
 <c:choose>
     <c:when test="${param.action.equals('add')}">
-        ${orderBean.addOrder(orderBean)}
+        ${orderBean.addOrder(orderEditable)}
     </c:when>
     <c:when test="${param.action.equals('edit')}">
-        ${orderBean.editOrder(orderBean)}
+        ${orderBean.editOrder(orderEditable)}
     </c:when>
     <c:when test="${param.action.equals('delete')}">
-        ${orderBean.deleteOrder(orderBean.getId())}
+        ${orderBean.deleteOrder(orderEditable.id)}
     </c:when>
 </c:choose>
 
@@ -84,31 +91,35 @@
                     <div class="form-group">
                         <label for="machinistEditSelect">Machinist</label>
                         <select class="form-control mandatory" id="machinistEditSelect">
-                            <option th:each="machinist : ${machinistList}" th:id="${'editMachinist_' + machinist.id}" th:text="${machinist.firstName} + ' ' + ${machinist.lastName}"></option>
+                            <c:forEach var="machinist" items="${machinistBean.all}">
+                                <option id="${'editMachinist_' + machinist.id}">${machinist.firstName} + ' ' + ${machinist.lastName}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="startDateEdit">Start date</label>
-                        <input type="date" class="form-control mandatory" id="startDateEdit" placeholder="Start date" th:field="*{startDate}">
+                        <input type="date" class="form-control mandatory" id="startDateEdit" name="startDate" placeholder="Start date">
                     </div>
                     <div class="form-group">
                         <label for="endDateEdit">End date</label>
-                        <input type="date" class="form-control mandatory" id="endDateEdit" placeholder="End date" th:field="*{endDate}">
+                        <input type="date" class="form-control mandatory" id="endDateEdit" name="endDate" placeholder="End date">
                     </div>
                     <div class="form-group">
                         <label for="valueCostEdit">Cost</label>
-                        <input type="number" class="form-control mandatory" id="valueCostEdit" placeholder="Value Cost" th:field="*{cost}">
+                        <input type="number" class="form-control mandatory" id="valueCostEdit" name="valueCost" placeholder="Value Cost">
                     </div>
                     <div class="form-group">
                         <label for="statusEditSelect">Status</label>
                         <select class="form-control mandatory" id="statusEditSelect">
-                            <option th:each="status : ${statusList}" th:id="${'editStatus_' + status.id}" th:text="${status.status}"></option>
+                            <c:forEach var="status" items="${orderBean.allOrderStatuses}">
+                                <option id="${'editStatus_' + status.id}" >${status.status}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div hidden>
-                        <input type="number" th:id="editClientHiddenId" th:field="*{client.id}">
-                        <input type="number" th:id="editMachinistHiddenId" th:field="*{machinist.id}">
-                        <input type="number" th:id="editStatusHiddenId" th:field="*{status.id}">
+                        <input type="number" id="editClientHiddenId" name="clientId">
+                        <input type="number" id="editMachinistHiddenId" name="machinistId">
+                        <input type="number" id="editStatusHiddenId" name="statusId">
                     </div>
                     <div id="editDateError" class="alert alert-danger">
                         Start date must be before End date
@@ -116,7 +127,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="editSave">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="editSave" name="action" value="edit">Save changes</button>
                 </div>
             </form>
         </div>
@@ -133,50 +144,54 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="#" method="post" th:action="@{/orders/add}" th:object="${order}">
+            <form method="post" action="orders.jsp">
                 <div class="modal-body">
+                    <input type="number" hidden id="addId" name="id">
                     <div class="form-group">
                         <label for="descriptionAdd">Description</label>
-                        <textarea class="form-control" id="descriptionAdd" rows="3" th:field="*{description}"></textarea>
+                        <textarea class="form-control" id="descriptionAdd" name="description" rows="3"></textarea>
                         <!--<input type="text" class="form-control" id="firstNameAdd" placeholder="First Name" th:field="*{description}">-->
                     </div>
                     <div class="form-group">
                         <label for="clientAddSelect">Client</label>
                         <select class="form-control mandatory" id="clientAddSelect">
-                            <option selected disabled></option>
-                            <option th:each="client : ${clientsList}" th:id="${'addClient_' + client.id}" th:text="${client.firstName} +' ' + ${client.lastName}"></option>
+                            <c:forEach var="client" items="${clientBean.all}">
+                                <option id="${'addClient_' + client.id}">${client.firstName} ${client.lastName}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="machinistAddSelect">Machinist</label>
                         <select class="form-control mandatory" id="machinistAddSelect">
-                            <option selected disabled></option>
-                            <option th:each="machinist : ${machinistList}" th:id="${'addMachinist_' + machinist.id}" th:text="${machinist.firstName} + ' ' + ${machinist.lastName}"></option>
+                            <c:forEach var="machinist" items="${machinistBean.all}">
+                                <option id="${'addMachinist_' + machinist.id}">${machinist.firstName} + ' ' + ${machinist.lastName}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div class="form-group">
                         <label for="startDateAdd">Start date</label>
-                        <input type="date" class="form-control mandatory" id="startDateAdd" placeholder="Start date" th:field="*{startDate}">
+                        <input type="date" class="form-control mandatory" id="startDateAdd" name="startDate" placeholder="Start date">
                     </div>
                     <div class="form-group">
                         <label for="endDateAdd">End date</label>
-                        <input type="date" class="form-control mandatory" id="endDateAdd" placeholder="End date" th:field="*{endDate}">
+                        <input type="date" class="form-control mandatory" id="endDateAdd" name="endDate" placeholder="End date">
                     </div>
                     <div class="form-group">
                         <label for="valueCostAdd">Cost</label>
-                        <input type="number" class="form-control mandatory" id="valueCostAdd" placeholder="Value Cost" th:field="*{cost}">
+                        <input type="number" class="form-control mandatory" id="valueCostAdd" name="valueCost" placeholder="Value Cost">
                     </div>
                     <div class="form-group">
                         <label for="statusAddSelect">Status</label>
                         <select class="form-control mandatory" id="statusAddSelect">
-                            <option selected disabled></option>
-                            <option th:each="status : ${statusList}" th:id="${'addStatus_' + status.id}" th:text="${status.status}"></option>
+                            <c:forEach var="status" items="${orderBean.allOrderStatuses}">
+                                <option id="${'addStatus_' + status.id}" >${status.status}</option>
+                            </c:forEach>
                         </select>
                     </div>
                     <div hidden>
-                        <input type="number" th:id="addClientHiddenId" th:field="*{client.id}">
-                        <input type="number" th:id="addMachinistHiddenId" th:field="*{machinist.id}">
-                        <input type="number" th:id="addStatusHiddenId" th:field="*{status.id}">
+                        <input type="number" id="addClientHiddenId" name="clientId">
+                        <input type="number" id="addMachinistHiddenId" name="machinistId">
+                        <input type="number" id="addStatusHiddenId" name="statusId">
                     </div>
                     <div id="addDateError" class="alert alert-danger">
                         Start date must be before End date
@@ -184,7 +199,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary" id="addSave">Save changes</button>
+                    <button type="submit" class="btn btn-primary" id="addSave" name="action" value="add">Save changes</button>
                 </div>
             </form>
         </div>
@@ -202,9 +217,9 @@
         </div>
     </div>
     <!--/*@thymesVar id="machinist" type="com.mag.lab2.model.dto.Machinist"*/-->
-    <form hidden th:action="@{/orders/delete}" th:object="${order}" method="post">
-        <input type="number" hidden id="deleteId" th:field="*{id}">
-        <button type="submit" id="deleteFormBtn">D</button>
+    <form hidden action="orders.jsp" method="post">
+        <input type="number" hidden id="deleteId" name="id">
+        <button type="submit" id="deleteFormBtn" name="action" value="delete">D</button>
     </form>
     <table class="table table-hover mt-3" id="editOrderTable">
         <thead>
@@ -219,15 +234,19 @@
         </tr>
         </thead>
         <tbody>
-        <tr class="clickable-row" th:each="order : ${ordersList}" th:id="${order.id}">
-            <td th:text="${order.description}"></td>
-            <td th:text="${order.client.firstName} + ' ' + ${order.client.lastName}" th:id="${'client_' + order.client.id}"></td>
-            <td th:text="${order.machinist.firstName} + ' ' + ${order.machinist.lastName}"  th:id="${'machinist_' + order.machinist.id}"></td>
-            <td th:text="${order.startDate}"></td>
-            <td th:text="${order.endDate}"></td>
-            <td th:text="${order.cost}"></td>
-            <td th:text="${order.status.status}" th:id="${'status_' + order.status.id}"></td>
-        </tr>
+        <c:forEach var="order" items="${orderBean.all}">
+            <tr class="clickable-row" id="${order.id}">
+                <c:set var="client" value="${clientBean.getById(order.client)}"/>
+                <c:set var="machinist" value="${machinistBean.getById(order.machinist)}"/>
+                <td>${order.description}</td>
+                <td id="${'client_' + client.id}">${client.firstName} ${client.lastName}</td>
+                <td id="${'machinist_' + machinist.id}">${machinist.firstName} ${machinist.lastName}</td>
+                <td>${order.startDate}</td>
+                <td>${order.endDate}</td>
+                <td>${order.cost}</td>
+                <td id="${'status_' + orderBean.getOrderStatus(order).id}">${orderBean.getOrderStatus(order).status}</td>
+            </tr>
+        </c:forEach>
         </tbody>
     </table>
 </div>
@@ -237,7 +256,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-<script th:src="@{/custom.js}"></script>
-<script th:src="@{/custom-order.js}"></script>
+<script src="scripts/custom.js"></script>
+<script src="scripts/custom-machinist.js"></script>
 </body>
 </html>

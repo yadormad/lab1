@@ -5,12 +5,12 @@ import java.util.Date;
 public class Order {
     private Long id;
     private String description;
-    private Client client;
-    private Machinist machinist;
+    private Long clientId;
+    private Long machinistId;
     private Date startDate;
     private Date endDate;
     private Double cost;
-    private OrderStatus status;
+    private Long statusId;
 
     public Long getId() {
         return id;
@@ -20,12 +20,12 @@ public class Order {
         return description;
     }
 
-    public Client getClient() {
-        return client;
+    public Long getClient() {
+        return clientId;
     }
 
-    public Machinist getMachinist() {
-        return machinist;
+    public Long getMachinist() {
+        return machinistId;
     }
 
     public Date getStartDate() {
@@ -40,8 +40,8 @@ public class Order {
         return cost;
     }
 
-    public OrderStatus getStatus() {
-        return status;
+    public Long getStatus() {
+        return statusId;
     }
 
     public Order setId(Long id) {
@@ -54,13 +54,13 @@ public class Order {
         return this;
     }
 
-    public Order setClient(Client client) {
-        this.client = client;
+    public Order setClient(Long clientId) {
+        this.clientId = clientId;
         return this;
     }
 
-    public Order setMachinist(Machinist machinist) {
-        this.machinist = machinist;
+    public Order setMachinist(Long machinistId) {
+        this.machinistId = machinistId;
         return this;
     }
 
@@ -79,8 +79,8 @@ public class Order {
         return this;
     }
 
-    public Order setStatus(OrderStatus status) {
-        this.status = status;
+    public Order setStatus(Long statusId) {
+        this.statusId = statusId;
         return this;
     }
 }

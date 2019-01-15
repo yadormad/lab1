@@ -20,7 +20,7 @@ public class MachinistController {
 
     @PostConstruct
     public void init() {
-        machinistDao = new JpaDaoFactory().getMachinistDao();
+        //machinistDao = new JpaDaoFactory().getMachinistDao();
         machinistEntityDtoConverter = new MachinistJpaDtoConverterImpl(machinistDao);
     }
 
@@ -40,7 +40,20 @@ public class MachinistController {
         machinistDao.delete(id);
     }
 
-    public Machinist buildMachinist() {
-        return new Machinist();
+    public Machinist buildMachinist(Long id,
+            String firstName,
+            String lastName,
+            String fatherName,
+            Double valueCost) {
+        return new Machinist()
+                .setId(id)
+                .setValueCost(valueCost)
+                .setFatherName(fatherName)
+                .setLastName(lastName)
+                .setFirstName(firstName);
+    }
+
+    public Machinist getById(Long id) {
+        return machinistEntityDtoConverter.toDto(machinistDao.get(id));
     }
 }
